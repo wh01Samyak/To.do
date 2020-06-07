@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A cool thing made with Glitch">
+
+    <title>note.keeper</title>
+
+    <link id="favicon" rel="icon" href="https://cdn.glitch.com/dd917433-004c-4870-aa64-b9b17d06579c%2Ffavicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css"> 
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- import the webpage's client-side javascript file -->
+    <script src="/home.js"></script>
+  </head>
+  <body onload="showTasks('<%= userId %>')">
+    <header>
+      <a onclick="window.open('https://interesting-broadleaf-redcurrant.glitch.me', '_parent')" class="header_url">to.do</a> 
+      <div class="header_links">
+        
+        <a id="filterTasksButton" onclick="document.getElementById('filterSideNav').style.display='block'; document.getElementById('filterSideNav').style.width='310px'; document.getElementById('main').style.position= 'relative'; document.getElementById('main').style.left= '150px';" class="header_link"><i class="fa fa-filter" aria-hidden="true" title="Filter"></i></a>
+        <a id="removeFilterButton" onclick="showTasks('<%= userId %>');document.getElementById('resetFilterButton').click();document.getElementById('filterSideNav').style.width='0px'; document.getElementById('main').style.left= '0px';" class="header_link" style="display:none"><i class="fa fa-times" aria-hidden="true" title="Remove Filter"></i></a>
+        <a id="addTaskButton" onclick="addTask()" class="header_link"><i class="fa fa-plus" aria-hidden="true" title="Add Task"></i></a>
+        <a id="showArchivesButton" onclick="showArchives('<%= userId %>')" class="header_link"><i class="fa fa-history" aria-hidden="true" title="Show Archives"></i></a>
+        <a id="showTasksButton" onclick="showTasks('<%= userId %>')" class="header_link" style="display:none"><i class="fa fa-tasks" aria-hidden="true" title="Show Tasks"></i></a>
+<!--         <div class="header_dropdown">
+          <a class="header_link"><i class="fa fa-cog" aria-hidden="true" title="Options"></i></a>
+          <div class="header_dropdown_content">
+            <a onclick="window.open('https://interesting-broadleaf-redcurrant.glitch.me', '_parent')">Logout</a>
+            <a onclick="deleteUser('<%= userId %>')">Delete</a>
+          </div>
+        </div> -->
+      </div>
+    </header>
+    
+    <div class="main" id="main">
+      <div id="tasks">
+      </div>
+      <!-- Side navigation -->
+      <div class="sidenav" style="width:auto; display:none" id="filterSideNav">
+        <form  id="filterForm" style="width:auto;">
+          <div class="container" id="filterFormId"> 
+            <input type="text" value="<%= userId %>" name="userId" style="display:none" id="userIdFilterInput"> 
+
+            <label><b>Starting Due-Date and Time</b></label><br>
+            <input type="datetime-local" name="startingDate" id="startingDateFilterInput"> 
+            <br><br>
+            <label><b>Ending Due-Date and Time</b></label><br>
+            <input type="datetime-local" name="endingDate" id="endingDateFilterInput"> 
+            <br><br>
+            <label><b>Label</b></label><br>
+            <input type="checkbox" name="label1" value="Personal" id="label1">
+            <label for="label1">Personal</label><br>
+            <input type="checkbox" name="label2" value="Work" id="label2">
+            <label for="label2">Work</label><br>
+            <input type="checkbox" name="label3" value="Shopping" id="label3">
+            <label for="label3">Shopping</label><br>
+            <input type="checkbox" name="label4" value="Others" id="label4">
+            <label for="label4">Others</label><br><br>
+            <label><b>Priority</b></label> <br>
+            <input type="checkbox" name="priority1" value="Urgent" id="priority1">
+            <label for="priority1">Urgent</label><br>
+            <input type="checkbox" name="priority2" value="High" id="priority2">
+            <label for="priority2">High</label><br>
+            <input type="checkbox" name="priority3" value="Medium" id="priority3">
+            <label for="priority3">Medium</label><br>
+            <input type="checkbox" name="priority4" value="Low" id="priority4">
+            <label for="priority4">Low</label><br><br>
+            <label><b>Status</b></label> <br>
+            <input type="checkbox" name="status1" value="New" id="status1">
+            <label for="status1">New</label><br>
+            <input type="checkbox" name="status2" value="In Progress" id="status2">
+            <label for="status2">In Progress</label><br>
+            <input type="checkbox" name="status3" value="Completed" id="status3">
+            <label for="status3">Completed</label><br><br>
+
+          </div> 
+
+          <div class="clearfix" id="filterFormButtons">  
+            <button type="button" onclick="showFilteredTasks(); document.getElementById('filterSideNav').style.width='0px';document.getElementById('main').style.left= '0px';" class="submitButton" id="newTaskFilterSubmitButton">Submit</button>
+            <button type="reset" class="resetButton" id="resetFilterButton">Reset</button>
+            <button type="button" onclick="document.getElementById('filterSideNav').style.display='none'; document.getElementById('filterSideNav').style.width='0px'; document.getElementById('main').style.left= '0px';" class="cancelButton">Cancel</button>
+         </div> 
+        </form>
+      </div> 
+
+      <!-- https://www.geeksforgeeks.org/create-responsive-modal-sign-form-website/ -->
+
+      <div id="addTaskForm" class="modal"> 
+          <span onclick="document.getElementById('addTaskForm').style.display='none'" class="close" title="Close">×</span> 
+          <form class="modal-content animate" action="https://interesting-broadleaf-redcurrant.glitch.me/note" method="post" id="taskForm"> 
+              <div class="container" id="taskFormId"> 
+
+                  <input type="text" name="_id" style="display:none" id="noteIdInput"> 
+
+                  <input type="text" value="<%= userId %>" name="userId" style="display:none" id="userIdInput"> 
+
+                  <label><b>Title</b></label> 
+                  <input type="text" placeholder="Enter Title" name="title" required id="titleInput"> 
+
+                  <label><b>Description</b></label> 
+                  <input type="text" placeholder="Enter Description" name="description" id="descriptionInput"> 
+
+                  <label><b>Due-Date and Time</b></label> 
+                  <input type="datetime-local" name="dueDate" id="dueDateInput"> 
+
+                  <div class="dropDown">
+                    <label class="dropDownButton"><b><i class="fa fa-tag" aria-hidden="true"></i></b></label>
+                    <div class="dropDownContent">
+                      <select style="font-family:'FontAwesome', Arial;" id = "labelList" name="label" onchange="this.className=this.options[this.selectedIndex].className">
+                        `<option value = "" class="saoText">--Select an Option--</option>
+                         <option value = "Personal" id="labelInputPersonal" class="personalText">&#xf02b; Personal</option>
+                         <option value = "Work" id="labelInputWork" class="workText">&#xf02b; Work</option>
+                         <option value = "Shopping" id="labelInputShopping" class="shoppingText">&#xf02b; Shopping</option>
+                         <option value = "Others" id="labelInputOthers" class="othersText">&#xf02b; Others</option>
+                       </select>
+                    </div>
+                  </div>
+
+                  <div class="dropDown">
+                    <label class="dropDownButton"><b><i class="fa fa-flag" aria-hidden="true"></i></b></label>
+                    <div class="dropDownContent">
+                      <select style="font-family:'FontAwesome', Arial;" id = "priorityList" name="priority" onchange="this.className=this.options[this.selectedIndex].className">
+                        `<option value = "" class="SAOText">--Select an Option--</option>
+                         <option value = "Urgent" id="priorityInputUrgent" class="urgentText">&#xf024; Urgent</option>
+                         <option value = "High" id="priorityInputHigh" class="highText">&#xf024; High</option>
+                         <option value = "Medium" id="priorityInputMedium" class="mediumText">&#xf024; Medium</option>
+                         <option value = "Low" id="priorityInputLow" class="lowText">&#xf11d; Low</option>
+                       </select>
+                    </div>
+                  </div>
+
+                  <div class="dropDown" style="display:none" id="statusDropDown">
+                    <label class="dropDownButton"><b><i class="fa fa-circle" aria-hidden="true"></i></b></label>
+                    
+                    <div class="dropDownContent">
+                      <select style="font-family:'FontAwesome', Arial;" id = "statusList" name="status" onchange="this.className=this.options[this.selectedIndex].className">
+                         <option value = "" style="display:none"></option>
+                         <option value = "New" id="statusInputNew" class="newText">&#xf111; New</option>
+                         <option value = "In Progress" id="statusInputIn Progress" class="inProgressText">&#xf111; In Progress</option>
+                         <option value = "Completed" id="statusInputCompleted" class="completedText">&#xf111; Completed</option>
+                       </select>
+                    </div>
+                  </div>
+
+                  <div class="clearfix_right" id="addTaskFormButtons"> 
+                      <button type="button" onclick="document.getElementById('addTaskForm').style.display='none'" class="cancelButton">Cancel</button> 
+                      <button type="submit" class="submitButton" id="newTaskSubmitButton">Submit</button>
+                      <button type="reset" class="resetButton" id="newTaskResetButton" style="display:none">Reset</button> 
+                  </div> 
+              </div> 
+          </form> 
+      </div> 
+    </div>
+  </body>
+</html>
