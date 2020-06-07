@@ -1,0 +1,267 @@
+body {
+  height: 100%;
+}
+
+header {
+    width: 100%;
+    position: fixed;
+    top:0;
+    left:0;
+    bottom=0;
+    background-color:#c45863;
+    color:white;
+    font-size:2.2vw;
+    padding-bottom:0vw;
+    padding-right:1.5vw;
+    padding-left:1.2vw;
+    font-family: "lucida sans unicode";
+    font-weight: normal;
+    font-variant: normal;
+}
+
+.header_url:hover {
+    color: 	#E0E0E0;
+}
+
+.header_links {
+    float: right;
+}
+
+.header_link {
+    font-size:1.5vw;
+    margin-left:1.5vw;
+    font-family: "lucida sans unicode";
+}
+
+.header_link:hover {
+    color: 	#E0E0E0;
+}
+
+.header_dropdown {
+  display: inline;
+}
+
+.header_dropdown_content {
+  display: none;
+  background-color: #f1f1f1;
+  z-index: 1;
+}
+
+.header_dropdown_content a {
+  color: black;
+  font-size:1.2vw;
+}
+
+.header_dropdown_content a:hover {background-color: #ddd;}
+
+.header_dropdown:hover .header_dropdown_content {display: grid;}
+
+.main {
+    margin-top: 4.55vw;
+    height: 43.5vw;
+    background-color: white;
+    padding-left:15%;
+    padding-right:15%;
+}
+
+footer {
+    bottom:0;
+    text-align: center;
+    background-color:#42eda6;
+}
+
+.container { 
+    padding: 16px; 
+} 
+
+/* The sidebar menu */
+.sidenav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 160px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #e37681; 
+  overflow-x: hidden; /* Disable horizontal scroll */
+  margin-top: 45px;
+}
+
+.filterFormButtons {
+  padding-left:25px;
+  padding-right:25px;
+}
+
+.filterFormButton {
+  padding-left:15px;
+  padding-right:15px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+/*add full-width input fields*/ 
+input[type=text], 
+input[type=password] { 
+    width: 100%; 
+    padding: 12px 20px; 
+    margin: 8px 0; 
+    display: inline-block; 
+    border: 2px solid #ccc; 
+    box-sizing: border-box; 
+} 
+/* set a style for all buttons*/ 
+/*set styles for the cancel button*/ 
+.cancelbtn { 
+    padding: 14px 20px; 
+    background-color: #FF2E00; 
+} 
+/*float cancel and signup buttons and add an equal width*/ 
+.cancelbtn, 
+.signupbtn { 
+    float: left; 
+    width: 50% 
+} 
+
+/*define the modal’s background*/ 
+
+.modal { 
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0; 
+    top: 0; 
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0, 0.4); 
+    padding-top: 60px; 
+} 
+/*define the modal-content background*/ 
+
+.modal-content { 
+    background-color: white; 
+    margin: 5% auto 15% auto; 
+    border: 1px solid #888; 
+    width: 80%; 
+    font-family: "lucida sans unicode";
+} 
+/*define the close button*/ 
+
+.close { 
+    position: absolute; 
+    right: 35px; 
+    top: 15px; 
+    color: white; 
+    font-size: 40px; 
+    font-weight: bold; 
+} 
+/*define the close hover and focus effects*/ 
+
+.close:hover, 
+.close:focus { 
+    color: red; 
+    cursor: pointer; 
+} 
+
+.clearfix_right { 
+    float: right;
+}
+
+@media screen and (max-width: 300px) { 
+    .cancelbtn, 
+    .signupbtn { 
+        width: 100%; 
+    } 
+} 
+
+/* Dropdown Button */
+.dropDownButton {
+/*   color: black; */
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+/* The <div> - needed to position the dropdown content */
+.dropDown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropDownContent {
+  display: none;
+  position: relative;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  z-index: 1;
+}
+
+/* Show the dropdown menu on hover */
+.dropDown:hover .dropDownContent {display: inline;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropDown:hover .dropDownButton {color:#C0C0C0;}
+
+.task {
+  background-color:#F5F5F5;
+  font-family:"FontAwesome", Arial;
+}
+
+.task b{
+  font-size:19px;
+}
+.task_buttons {
+  float:right;
+}
+
+.task_button {
+  font-size: 18px;
+  padding-left:10px;
+}
+.saoText{
+  color:black;
+}
+.personalText{
+  color:#F08080 ;
+}
+.workText{
+  color:#3498DB;
+}
+.shoppingText{
+  color:#45B39D;
+}
+.othersText{
+  color:#873600 ;
+}
+
+.SAOText{
+  color:black;
+}
+.urgentText{
+  color:red;
+}
+.highText{
+  color:orange;
+}
+.mediumText{
+  color:blue;
+}
+.lowText{
+  color:black;
+}
+
+.newText{
+  color:#67E7D7;
+}
+.inProgressText{
+  color:	 #e1ad01;
+}
+.completedText{
+  color:#78e657;
+}
